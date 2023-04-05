@@ -95,18 +95,10 @@ def restore_files(src_folder, dest_folder):
                     fragment_file_name = f"{file_composition['filename']}.part{i+1}"
                     fragment_filenames.append(fragment_file_name)
 
-                # Check if all fragments have been restored
-                fragments_restored = len([file for file in os.listdir(dest_folder) if file in fragment_filenames])
-                
-                if fragments_restored == num_fragments:
+                if len(fragment_filenames) == num_fragments:
                     print(f"All fragments have been restored for {file_composition['filename']}")
                 else:
                     print(f"Error: Not all fragments have been restored for {file_composition['filename']}")
-                
-                # Add fragmented filenames to JSON file
-                file_composition["fragment_filenames"] = fragment_filenames
-                with open(os.path.join(dest_folder, f"{file_composition['filename']}.json"), "w") as json_file:
-                    json.dump(file_composition, json_file)
 
 if __name__ == "__main__":
     opc = int(input("Enter the option\n\r1) Back-up\n\r2) Restore back-up\nR=\ "))
